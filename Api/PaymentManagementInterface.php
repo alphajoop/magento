@@ -8,8 +8,8 @@ namespace Lomi\Payments\Api;
 interface PaymentManagementInterface
 {
     /**
-     * @param string $reference Checkout session id
+     * @param string $checkoutSessionId Lomi checkout session UUID
      * @return string JSON
      */
-    public function verifyPayment($reference);
+    public function verifyPayment($checkoutSessionId);
 }

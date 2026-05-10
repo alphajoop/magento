@@ -45,7 +45,7 @@ php bin/magento cache:flush
 1. Customer chooses **lomi.** at checkout and places the order.
 2. Magento creates a checkout session and redirects to lomi. hosted checkout.
 3. Return URL: `lomi/payment/callback` (with order verification).
-4. Webhook: `PAYMENT_SUCCEEDED` with `X-Lomi-Signature` / `X-Lomi-Event` headers.
+4. Webhook: `PAYMENT_SUCCEEDED` with `X-Lomi-Signature` / `X-Lomi-Event` headers. If webhook payload metadata omits `magento_increment_id`, the extension resolves the order by stored `lomi_checkout_session_id` when `checkout_session_id` is present.
 
 ## Upgrade from legacy module identifiers
 
@@ -53,7 +53,7 @@ If you previously used another vendor prefix, run `setup:upgrade` so the data pa
 
 ## REST (optional)
 
-`GET /rest/V1/lomi/verify/:checkoutSessionId` — verifies the checkout session for the current checkout session’s last order (see `etc/webapi.xml`).
+`GET /rest/V1/lomi/verify/:checkoutSessionId` — verifies the checkout session for the **browser checkout session’s last real order** (path segment must match `lomi_checkout_session_id` on that order). Defined in [`etc/webapi.xml`](etc/webapi.xml).
 
 ## Development
 
