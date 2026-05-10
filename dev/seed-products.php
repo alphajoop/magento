@@ -1,6 +1,6 @@
 <?php
 /**
- * Creates test products (with images) using the Magento application bootstrap.
+ * Creates test products using the Magento application bootstrap (no bundled product images).
  * Run inside the container: php app/code/Lomi/Payments/dev/seed-products.php
  */
 
@@ -18,8 +18,6 @@ try {
 } catch (\Exception $e) {
     // Area code already set
 }
-
-$imgDir = '/var/www/html/app/code/Lomi/Payments/dev/img/products';
 
 $categoryFactory = $objectManager->get(\Magento\Catalog\Model\CategoryFactory::class);
 $categoryRepository = $objectManager->get(\Magento\Catalog\Api\CategoryRepositoryInterface::class);
@@ -55,11 +53,11 @@ $stockRegistry = $objectManager->get(\Magento\CatalogInventory\Api\StockRegistry
 $categoryLinkManagement = $objectManager->get(\Magento\Catalog\Api\CategoryLinkManagementInterface::class);
 
 $products = [
-    ['sku' => 'lomi-tshirt',       'name' => 'lomi. T-Shirt',       'price' => 5000,  'image' => 'lomi-t-shirt.png'],
-    ['sku' => 'lomi-hoodie',       'name' => 'lomi. Hoodie',        'price' => 15000, 'image' => 'lomi-hoodie.png'],
-    ['sku' => 'lomi-cap',          'name' => 'lomi. Cap',           'price' => 3000,  'image' => 'lomi-cap.png'],
-    ['sku' => 'lomi-sticker-pack', 'name' => 'lomi. Sticker Pack',  'price' => 500,   'image' => 'lomi-stickers.png'],
-    ['sku' => 'lomi-water-bottle', 'name' => 'lomi. Water Bottle', 'price' => 7500,  'image' => 'lomi-water-bottle.png'],
+    ['sku' => 'lomi-tshirt',       'name' => 'lomi. T-Shirt',       'price' => 5000],
+    ['sku' => 'lomi-hoodie',       'name' => 'lomi. Hoodie',        'price' => 15000],
+    ['sku' => 'lomi-cap',          'name' => 'lomi. Cap',           'price' => 3000],
+    ['sku' => 'lomi-sticker-pack', 'name' => 'lomi. Sticker Pack',  'price' => 500],
+    ['sku' => 'lomi-water-bottle', 'name' => 'lomi. Water Bottle', 'price' => 7500],
 ];
 
 foreach ($products as $p) {
@@ -79,26 +77,6 @@ foreach ($products as $p) {
     $product->setVisibility(\Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
     $product->setTypeId(\Magento\Catalog\Model\Product\Type::TYPE_SIMPLE);
     $product->setWeight(1);
-
-    $imagePath = $imgDir . '/' . $p['image'];
-    if (file_exists($imagePath)) {
-        $importDir = BP . '/pub/media/import';
-        if (!is_dir($importDir)) {
-            mkdir($importDir, 0775, true);
-        }
-        $destPath = $importDir . '/' . $p['image'];
-        copy($imagePath, $destPath);
-
-        $product->addImageToMediaGallery(
-            $destPath,
-            ['image', 'small_image', 'thumbnail'],
-            false,
-            false
-        );
-        echo "  Image: {$p['image']}\n";
-    } else {
-        echo "  No image found at: {$imagePath}\n";
-    }
 
     $product = $productRepository->save($product);
 
