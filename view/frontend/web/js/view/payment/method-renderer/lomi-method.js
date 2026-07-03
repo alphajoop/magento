@@ -54,7 +54,9 @@ define(
             getPaymentIconClass: function (iconUrl) {
                 var css = 'wc-lomi-checkout-branding__method';
 
-                if (typeof iconUrl === 'string' && iconUrl.indexOf('spi') !== -1) {
+                if (typeof iconUrl === 'string'
+                    && (iconUrl.indexOf('apple-pay') !== -1 || iconUrl.indexOf('google-pay') !== -1)
+                ) {
                     css += ' wc-lomi-checkout-branding__method--wide';
                 }
 

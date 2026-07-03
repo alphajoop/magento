@@ -1,54 +1,67 @@
+/* ── Branding card (shared with WooCommerce / PrestaShop plugins) ── */
+
 .wc-lomi-checkout-branding {
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	max-width: 360px;
-	padding: 12px 14px;
-	border: 1px solid #e2e8f0;
-	border-radius: 10px;
+	min-width: 0;
 	gap: 10px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
 }
 
-.payment-method-title .label .wc-lomi-checkout-branding {
-	display: flex;
-	overflow: visible;
-}
-
-.wc-lomi-checkout-branding__header {
+.wc-lomi-checkout-branding__main {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.wc-lomi-checkout-branding__brand {
+	display: flex;
+	align-items: center;
+	min-height: 36px;
+	flex: 1 1 160px;
+	min-width: 0;
 }
 
 .wc-lomi-checkout-branding__title {
 	margin: 0;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 22px;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 1.3;
 	color: #0c1e3d;
+	letter-spacing: -0.01em;
 }
 
 .wc-lomi-checkout-branding__title strong {
 	font-weight: 700;
 }
 
-.wc-lomi-pay-with-image,
-.wc-lomi-checkout-branding__badge img {
+.wc-lomi-pay-with-image {
 	display: block;
-	height: 22px;
+	height: 36px;
 	width: auto;
+	max-width: min(220px, 100%);
 	margin: 0;
-	padding: 0;
 	object-fit: contain;
-	flex-shrink: 0;
+	object-position: left center;
 }
 
 .wc-lomi-checkout-branding__methods {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	justify-content: flex-end;
 	gap: 6px;
-	margin-top: 10px;
+	flex: 0 1 auto;
+	margin-left: auto;
 }
 
 .wc-lomi-checkout-branding__method {
@@ -56,25 +69,99 @@
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
-	width: 40px;
-	height: 40px;
+	width: 38px;
+	height: 38px;
 	flex-shrink: 0;
-	border-radius: 8px;
-	overflow: hidden;
+	border-radius: 9px;
+	background: #fff;
+	border: 1px solid #e8edf3;
+	box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
 }
 
 .wc-lomi-checkout-branding__method img {
 	display: block;
-	width: 100%;
-	height: 100%;
+	width: 28px;
+	height: 28px;
 	object-fit: contain;
-	border-radius: 6px;
 }
 
 .wc-lomi-checkout-branding__method--wide {
-	width: 56px;
+	width: 52px;
 }
 
-.payment-method._active .payment-method-title .wc-lomi-checkout-branding {
-	margin-top: 4px;
+.wc-lomi-checkout-branding__method--wide img {
+	width: 44px;
+}
+
+.wc-lomi-checkout-branding__hint {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.4;
+	color: #64748b;
+}
+
+.wc-lomi-checkout-branding__hint-icon {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	flex-shrink: 0;
+	background: currentColor;
+	opacity: 0.7;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* ── Magento checkout payment method ── */
+
+.checkout-payment-method .payment-method:has(.wc-lomi-checkout-branding) {
+	box-sizing: border-box;
+	margin: 0 0 12px;
+	padding: 16px 18px;
+	border: 1px solid #dbe3ee;
+	border-radius: 12px;
+	background: #fff;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.checkout-payment-method .payment-method:has(.wc-lomi-checkout-branding):hover {
+	border-color: #b8c5d6;
+}
+
+.checkout-payment-method .payment-method._active:has(.wc-lomi-checkout-branding) {
+	border-color: #0c1e3d;
+	box-shadow: 0 0 0 1px #0c1e3d;
+}
+
+.checkout-payment-method .payment-method:has(.wc-lomi-checkout-branding) .payment-method-title {
+	display: flex;
+	align-items: flex-start;
+	gap: 14px;
+	padding: 0;
+	margin: 0;
+}
+
+.checkout-payment-method .payment-method:has(.wc-lomi-checkout-branding) .payment-method-title .radio {
+	margin: 12px 0 0;
+	flex-shrink: 0;
+}
+
+.checkout-payment-method .payment-method:has(.wc-lomi-checkout-branding) .payment-method-title .label {
+	flex: 1 1 auto;
+	width: 100%;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+.checkout-payment-method .payment-method:has(.wc-lomi-checkout-branding) .payment-method-content {
+	padding: 12px 0 0 34px;
+	margin: 0;
+}
+
+.checkout-payment-method .payment-method:has(.wc-lomi-checkout-branding) .wc-lomi-checkout-branding {
+	max-width: none;
 }

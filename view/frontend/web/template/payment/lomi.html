@@ -7,29 +7,33 @@
         <label class="label" data-bind="attr: {'for': getCode()}">
             <!-- ko if: usesBrandingCard() -->
             <div class="wc-lomi-checkout-branding">
-                <div class="wc-lomi-checkout-branding__header">
-                    <!-- ko if: payWithImageUrl() -->
-                    <span class="wc-lomi-checkout-branding__badge">
+                <div class="wc-lomi-checkout-branding__main">
+                    <div class="wc-lomi-checkout-branding__brand">
+                        <!-- ko if: payWithImageUrl() -->
                         <img class="wc-lomi-pay-with-image"
                              data-bind="attr: {src: payWithImageUrl(), alt: $t('Pay with lomi.')}"
                              loading="lazy"
                              decoding="async" />
-                    </span>
-                    <!-- /ko -->
-                    <!-- ko ifnot: payWithImageUrl() -->
-                    <p class="wc-lomi-checkout-branding__title">
-                        <span data-bind="i18n: 'Pay with'"></span>
-                        <strong>lomi.</strong>
-                    </p>
-                    <!-- /ko -->
-                </div>
-                <!-- ko if: paymentIconUrls().length -->
-                <div class="wc-lomi-checkout-branding__methods" data-bind="foreach: paymentIconUrls()">
-                    <div data-bind="css: $parent.getPaymentIconClass($data)">
-                        <img data-bind="attr: {src: $data}" alt="" loading="lazy" decoding="async" />
+                        <!-- /ko -->
+                        <!-- ko ifnot: payWithImageUrl() -->
+                        <p class="wc-lomi-checkout-branding__title">
+                            <span data-bind="i18n: 'Pay with'"></span>
+                            <strong>lomi.</strong>
+                        </p>
+                        <!-- /ko -->
                     </div>
+                    <!-- ko if: paymentIconUrls().length -->
+                    <div class="wc-lomi-checkout-branding__methods" aria-hidden="true" data-bind="foreach: paymentIconUrls()">
+                        <div data-bind="css: $parent.getPaymentIconClass($data)">
+                            <img data-bind="attr: {src: $data}" alt="" loading="lazy" decoding="async" />
+                        </div>
+                    </div>
+                    <!-- /ko -->
                 </div>
-                <!-- /ko -->
+                <p class="wc-lomi-checkout-branding__hint">
+                    <span class="wc-lomi-checkout-branding__hint-icon" aria-hidden="true"></span>
+                    <span data-bind="i18n: 'Secure hosted checkout on lomi.'"></span>
+                </p>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: usesBrandingCard() -->
